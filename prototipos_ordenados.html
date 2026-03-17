@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Portal de Trabajo — Prototipos Completos</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #1a1a1a;
+  font-family: Arial, sans-serif;
+  padding: 30px 20px;
+  color: #111;
+}
+
+/* ── SEPARADORES DE SECCIÓN ── */
+.user-divider {
+  margin: 50px 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.user-divider-line { flex: 1; height: 1px; background: #444; }
+.user-divider-label {
+  background: #C9A96E;
+  color: #1B2A4A;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 20px;
+}
+.user-divider:first-child { margin-top: 0; }
+
+.screen-wrap { margin-bottom: 36px; }
+.screen-label {
+  font-size: 10px;
+  color: #777;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+  padding-left: 2px;
+}
+.shared-note {
+  display: inline-block;
+  font-size: 9px;
+  background: #333;
+  color: #C9A96E;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+  letter-spacing: 0.05em;
+}
+
+.screen {
+  background: #fff;
+  width: 720px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+/* ── NAVBAR ── */
+.navbar {
+  background: #1B2A4A;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  height: 44px;
+  gap: 2px;
+}
+.nav-icon {
+  width: 26px; height: 26px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  margin-right: 6px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: rgba(255,255,255,0.7);
+}
+.nav-link {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: rgba(255,255,255,0.65); padding: 4px 9px;
+}
+.nav-link.active { color: #fff; }
+.nav-search {
+  margin-left: auto; width: 90px; height: 22px;
+  background: rgba(255,255,255,0.15);
+  border: none; border-radius: 3px;
+}
+
+/* ── BUTTONS ── */
+.btn-gold {
+  background: #C9A96E; color: #1B2A4A;
+  border: none; border-radius: 4px;
+  padding: 0 14px; font-size: 11px; font-weight: 700;
+  height: 32px; cursor: pointer; white-space: nowrap;
+}
+.btn-navy {
+  background: #1B2A4A; color: #fff;
+  border: none; border-radius: 4px;
+  padding: 0 14px; font-size: 11px; font-weight: 600;
+  height: 32px; cursor: pointer; white-space: nowrap;
+}
+.btn-outline {
+  background: transparent; color: #1B2A4A;
+  border: 1.5px solid #ccc; border-radius: 4px;
+  padding: 0 12px; font-size: 11px;
+  height: 32px; cursor: pointer; white-space: nowrap;
+}
+.btn-sm { height: 26px; font-size: 10px; padding: 0 10px; }
+.btn-danger {
+  background: transparent; color: #c62828;
+  border: 1.5px solid #c62828; border-radius: 4px;
+  padding: 0 10px; font-size: 10px; height: 26px; cursor: pointer;
+}
+
+/* ── CONTENT ── */
+.content { background: #fff; padding: 20px 22px; }
+.content-beige { background: #F0EBE0; padding: 20px 22px; }
+
+/* ── TYPOGRAPHY ── */
+.page-title { font-size: 18px; font-weight: 700; color: #1B2A4A; margin-bottom: 14px; }
+.section-title { font-size: 13px; font-weight: 700; color: #1B2A4A; margin-bottom: 10px; }
+.section-gold { font-size: 11px; font-weight: 700; color: #C9A96E; text-transform: uppercase; letter-spacing: 0.07em; border-bottom: 1px solid #e8e8e8; padding-bottom: 7px; margin-bottom: 12px; }
+
+/* ── CARDS ── */
+.card { background: #F0EBE0; border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+.card-white { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+
+/* ── METRICS ── */
+.metrics { display: flex; gap: 10px; margin-bottom: 16px; }
+.metric-box { flex: 1; background: #F0EBE0; border-radius: 6px; padding: 12px; text-align: center; }
+.metric-box.hl { border: 2px solid #1B2A4A; }
+.metric-num { font-size: 20px; font-weight: 700; color: #1B2A4A; }
+.metric-label { font-size: 10px; color: #666; margin-top: 3px; }
+.metric-icon { font-size: 15px; margin-bottom: 4px; }
+
+/* ── TAGS ── */
+.tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 3px; margin-right: 3px; }
+.tag-navy { background: #1B2A4A; color: #fff; }
+.tag-gold { background: #C9A96E; color: #1B2A4A; }
+.tag-beige { background: #D4C9B5; color: #333; }
+.tag-green { background: #c8e6c9; color: #2e7d32; }
+.tag-red { background: #ffcdd2; color: #c62828; }
+
+/* ── FORMS ── */
+.form-group { margin-bottom: 10px; }
+.form-row { display: flex; gap: 10px; }
+.form-label { font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
+.form-input { width: 100%; height: 32px; border: 1.5px solid #ccc; border-radius: 4px; padding: 0 9px; font-size: 12px; background: #fff; }
+.form-textarea { width: 100%; border: 1.5px solid #ccc; border-radius: 4px; padding: 7px 9px; font-size: 12px; resize: none; background: #fff; font-family: Arial; }
+.form-select { width: 100%; height: 32px; border: 1.5px solid #ccc; border-radius: 4px; padding: 0 8px; font-size: 12px; background: #fff; }
+
+/* ── LAYOUT ── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.sidebar-layout { display: grid; grid-template-columns: 175px 1fr; gap: 14px; }
+
+/* ── ADMIN ── */
+.admin-wrap { display: grid; grid-template-columns: 155px 1fr; }
+.admin-side { background: #1B2A4A; padding: 14px 10px; border-radius: 4px 0 0 4px; }
+.admin-logo { font-size: 13px; font-weight: 700; color: #fff; padding: 0 5px; margin-bottom: 2px; }
+.admin-logo span { color: #C9A96E; }
+.admin-sub { font-size: 9px; color: rgba(255,255,255,0.3); padding: 0 5px; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+.admin-sec { font-size: 9px; color: rgba(255,255,255,0.28); padding: 0 5px; text-transform: uppercase; letter-spacing: 0.06em; margin: 10px 0 4px; }
+.admin-item { font-size: 11px; color: rgba(255,255,255,0.58); padding: 6px 7px; border-radius: 4px; cursor: pointer; margin-bottom: 1px; display: flex; align-items: center; gap: 6px; }
+.admin-item.active { background: rgba(255,255,255,0.11); color: #fff; }
+.admin-badge { margin-left: auto; background: #C9A96E; color: #1B2A4A; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 8px; }
+.admin-main { background: #F7F5F1; padding: 16px; border-radius: 0 4px 4px 0; }
+
+/* ── PROFILE SIDEBAR ── */
+.p-sidebar { background: #1B2A4A; border-radius: 6px; padding: 16px; color: #fff; text-align: center; }
+.avatar { width: 48px; height: 48px; background: #C9A96E; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #1B2A4A; margin: 0 auto 10px; }
+.p-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.p-role { font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+.p-nav { font-size: 11px; color: rgba(255,255,255,0.58); padding: 6px 8px; border-radius: 4px; text-align: left; cursor: pointer; margin-bottom: 1px; }
+.p-nav.active { background: rgba(255,255,255,0.11); color: #fff; }
+
+/* ── MISC ── */
+hr { border: none; border-top: 1px solid #e8e8e8; margin: 12px 0; }
+.row { display: flex; align-items: center; gap: 8px; }
+.rb { display: flex; align-items: center; justify-content: space-between; }
+.stars { color: #C9A96E; letter-spacing: 1px; }
+.toggle { width: 28px; height: 15px; background: #C9A96E; border-radius: 8px; position: relative; flex-shrink: 0; }
+.toggle.off { background: #ccc; }
+.toggle-t { position: absolute; right: 2px; top: 2px; width: 11px; height: 11px; background: #fff; border-radius: 50%; }
+.toggle.off .toggle-t { right: auto; left: 2px; }
+.alert-row { display: flex; align-items: center; gap: 9px; padding: 8px 10px; background: #F7F5F1; border-radius: 4px; margin-bottom: 6px; }
+.vacante-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #fff; border: 1px solid #e8e8e8; border-radius: 5px; margin-bottom: 6px; }
+.v-info { flex: 1; }
+.v-title { font-size: 13px; font-weight: 700; color: #1B2A4A; }
+.v-meta { font-size: 10px; color: #888; margin-top: 2px; }
+.app-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 13px; }
+.app-av { width: 34px; height: 34px; background: #F0EBE0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #1B2A4A; flex-shrink: 0; }
+.exp-item { padding: 9px 10px; background: #F7F5F1; border-left: 3px solid #C9A96E; border-radius: 0 4px 4px 0; margin-bottom: 7px; }
+.mod-item { display: flex; gap: 10px; padding: 11px 12px; background: #fff; border: 1px solid #e8e8e8; border-radius: 5px; margin-bottom: 7px; }
+.bar-chart { display: flex; align-items: flex-end; gap: 5px; height: 75px; margin-bottom: 20px; }
+.bar { flex: 1; background: #D4C9B5; border-radius: 3px 3px 0 0; position: relative; }
+.bar.active { background: #1B2A4A; }
+.bar-lbl { position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); font-size: 8px; color: #888; white-space: nowrap; }
+.pr-row { margin-bottom: 7px; }
+.pr-label { display: flex; justify-content: space-between; font-size: 11px; color: #555; margin-bottom: 3px; }
+.pr-track { height: 5px; background: #E8E0D0; border-radius: 3px; }
+.pr-fill { height: 100%; background: #1B2A4A; border-radius: 3px; }
+.pr-fill.g { background: #C9A96E; }
+.tbl-head { display: flex; padding: 7px 12px; background: #F0EBE0; font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; }
+.tbl-row { display: flex; padding: 8px 12px; border-bottom: 1px solid #f0f0f0; font-size: 12px; align-items: center; }
+.tbl-row:hover { background: #fafafa; }
+.col-2 { flex: 2; }
+.col-1 { flex: 1; color: #666; }
+.col-a { display: flex; gap: 4px; }
+.ic-btn { width: 24px; height: 24px; border: 1px solid #ddd; border-radius: 4px; background: none; cursor: pointer; font-size: 11px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     ADMINISTRADOR
+══════════════════════════════════════════ -->
+<div class="user-divider">
+  <div class="user-divider-line"></div>
+  <div class="user-divider-label">👤 Administrador</div>
+  <div class="user-divider-line"></div>
+</div>
+
+<!-- ADM-001 Dashboard -->
+<div class="screen-wrap">
+<div class="screen-label">ADM-001 · Panel de Administración · Acceso exclusivo por rol Admin</div>
+<div class="screen">
+  <div class="admin-wrap">
+    <div class="admin-side">
+      <div class="admin-logo">Trabajo<span>SV</span></div>
+      <div class="admin-sub">Panel Admin</div>
+      <div class="admin-sec">Principal</div>
+      <div class="admin-item active">📊 Dashboard</div>
+      <div class="admin-sec">Gestión</div>
+      <div class="admin-item">👥 Usuarios <span class="admin-badge">3</span></div>
+      <div class="admin-item">🏢 Empresas</div>
+      <div class="admin-item">💼 Vacantes</div>
+      <div class="admin-sec">Contenido</div>
+      <div class="admin-item">🚩 Moderación <span class="admin-badge">7</span></div>
+      <div class="admin-item">📰 Recursos</div>
+      <div class="admin-sec">Sistema</div>
+      <div class="admin-item">📈 Estadísticas</div>
+      <div class="admin-item">⚙️ Configuración</div>
+    </div>
+    <div class="admin-main">
+      <div class="rb" style="margin-bottom:14px;">
+        <div><div style="font-size:16px;font-weight:700;color:#1B2A4A;">Dashboard</div><div style="font-size:11px;color:#888;">Resumen general del sistema · 14 marzo 2026</div></div>
+        <button class="btn-gold btn-sm">Exportar reporte</button>
+      </div>
+      <div class="metrics">
+        <div class="metric-box"><div class="metric-icon">👥</div><div class="metric-num">18,423</div><div class="metric-label">Usuarios totales</div></div>
+        <div class="metric-box"><div class="metric-icon">🏢</div><div class="metric-num">1,240</div><div class="metric-label">Empresas activas</div></div>
+        <div class="metric-box"><div class="metric-icon">💼</div><div class="metric-num">3,580</div><div class="metric-label">Vacantes activas</div></div>
+        <div class="metric-box"><div class="metric-icon">📩</div><div class="metric-num">9,210</div><div class="metric-label">Postulaciones/mes</div></div>
+      </div>
+      <div class="two-col">
+        <div class="card-white">
+          <div class="section-title">Nuevos usuarios por mes</div>
+          <div class="bar-chart">
+            <div class="bar" style="height:40%"><span class="bar-lbl">Oct</span></div>
+            <div class="bar" style="height:55%"><span class="bar-lbl">Nov</span></div>
+            <div class="bar" style="height:48%"><span class="bar-lbl">Dic</span></div>
+            <div class="bar" style="height:62%"><span class="bar-lbl">Ene</span></div>
+            <div class="bar" style="height:70%"><span class="bar-lbl">Feb</span></div>
+            <div class="bar active" style="height:100%"><span class="bar-lbl">Mar</span></div>
+          </div>
+        </div>
+        <div class="card-white">
+          <div class="section-title">Distribución de usuarios</div>
+          <div class="pr-row"><div class="pr-label"><span>Candidatos</span><span>60%</span></div><div class="pr-track"><div class="pr-fill" style="width:60%"></div></div></div>
+          <div class="pr-row"><div class="pr-label"><span>Empresas</span><span>26%</span></div><div class="pr-track"><div class="pr-fill g" style="width:26%"></div></div></div>
+          <div class="pr-row"><div class="pr-label"><span>Sin perfil</span><span>14%</span></div><div class="pr-track"><div class="pr-fill" style="width:14%;background:#D4C9B5;"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ADM-002 Gestión de Usuarios -->
+<div class="screen-wrap">
+<div class="screen-label">ADM-002 · Gestión de Usuarios · Admin</div>
+<div class="screen">
+  <div class="admin-wrap">
+    <div class="admin-side">
+      <div class="admin-logo">Trabajo<span>SV</span></div>
+      <div class="admin-sub">Panel Admin</div>
+      <div class="admin-sec">Principal</div>
+      <div class="admin-item">📊 Dashboard</div>
+      <div class="admin-sec">Gestión</div>
+      <div class="admin-item active">👥 Usuarios <span class="admin-badge">3</span></div>
+      <div class="admin-item">🏢 Empresas</div>
+      <div class="admin-item">💼 Vacantes</div>
+      <div class="admin-sec">Contenido</div>
+      <div class="admin-item">🚩 Moderación <span class="admin-badge">7</span></div>
+      <div class="admin-sec">Sistema</div>
+      <div class="admin-item">📈 Estadísticas</div>
+    </div>
+    <div class="admin-main">
+      <div class="rb" style="margin-bottom:12px;">
+        <div><div style="font-size:16px;font-weight:700;color:#1B2A4A;">Gestión de usuarios</div><div style="font-size:11px;color:#888;">18,423 usuarios registrados</div></div>
+        <button class="btn-gold btn-sm">+ Nuevo usuario</button>
+      </div>
+      <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
+        <span class="tag tag-navy" style="padding:4px 10px;cursor:pointer;">Todos (18,423)</span>
+        <span class="tag tag-beige" style="padding:4px 10px;cursor:pointer;">Candidatos (11,054)</span>
+        <span class="tag tag-beige" style="padding:4px 10px;cursor:pointer;">Empresas (4,812)</span>
+        <span class="tag tag-beige" style="padding:4px 10px;cursor:pointer;">Admins (12)</span>
+        <span class="tag tag-red" style="padding:4px 10px;cursor:pointer;">Suspendidos (3)</span>
+      </div>
+      <div style="background:#fff;border-radius:5px;border:1px solid #e8e8e8;overflow:hidden;">
+        <div style="display:flex;align-items:center;padding:9px 12px;border-bottom:1px solid #eee;gap:8px;">
+          <span style="flex:1;font-size:12px;font-weight:700;color:#1B2A4A;">Lista de usuarios</span>
+          <input style="height:26px;border:1px solid #ccc;border-radius:4px;padding:0 8px;font-size:10px;width:130px;" placeholder="Buscar usuario…">
+        </div>
+        <div class="tbl-head"><div class="col-2">Usuario</div><div class="col-1">Rol</div><div class="col-1">Registro</div><div class="col-1">Estado</div><div style="width:80px;">Acciones</div></div>
+        <div class="tbl-row"><div class="col-2"><div style="font-weight:700;color:#1B2A4A;">María Rodríguez</div><div style="font-size:10px;color:#888;">maria@correo.com</div></div><div class="col-1"><span class="tag tag-beige">Candidato</span></div><div class="col-1">12/01/2026</div><div class="col-1"><span class="tag tag-green">Activo</span></div><div class="col-a"><button class="ic-btn">👁</button><button class="ic-btn">✏️</button><button class="ic-btn">🔒</button></div></div>
+        <div class="tbl-row"><div class="col-2"><div style="font-weight:700;color:#1B2A4A;">Tech Solutions Inc.</div><div style="font-size:10px;color:#888;">rrhh@techsolutions.sv</div></div><div class="col-1"><span class="tag tag-navy">Empresa</span></div><div class="col-1">05/11/2025</div><div class="col-1"><span class="tag tag-green">Activo</span></div><div class="col-a"><button class="ic-btn">👁</button><button class="ic-btn">✏️</button><button class="ic-btn">🔒</button></div></div>
+        <div class="tbl-row" style="background:#fff8f8;"><div class="col-2"><div style="font-weight:700;color:#1B2A4A;">Roberto Fuentes</div><div style="font-size:10px;color:#888;">roberto@mail.com</div></div><div class="col-1"><span class="tag tag-beige">Candidato</span></div><div class="col-1">22/02/2026</div><div class="col-1"><span class="tag tag-red">Suspendido</span></div><div class="col-a"><button class="ic-btn">👁</button><button class="ic-btn">✏️</button><button class="ic-btn">🔓</button></div></div>
+        <div class="tbl-row"><div class="col-2"><div style="font-weight:700;color:#1B2A4A;">Ana López</div><div style="font-size:10px;color:#888;">ana.lopez@dev.com</div></div><div class="col-1"><span class="tag tag-beige">Candidato</span></div><div class="col-1">08/03/2026</div><div class="col-1"><span class="tag tag-green">Activo</span></div><div class="col-a"><button class="ic-btn">👁</button><button class="ic-btn">✏️</button><button class="ic-btn">🔒</button></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ADM-003 Gestión de Empresas -->
+<div class="screen-wrap">
+<div class="screen-label">ADM-003 · Gestión de Empresas · Admin</div>
+<div class="screen">
+  <div class="admin-wrap">
+    <div class="admin-side">
+      <div class="admin-logo">Trabajo<span>SV</span></div>
+      <div class="admin-sub">Panel Admin</div>
+      <div class="admin-sec">Principal</div>
+      <div class="admin-item">📊 Dashboard</div>
+      <div class="admin-sec">Gestión</div>
+      <div class="admin-item">👥 Usuarios</div>
+      <div class="admin-item active">🏢 Empresas</div>
+      <div class="admin-item">💼 Vacantes</div>
+      <div class="admin-sec">Contenido</div>
+      <div class="admin-item">🚩 Moderación <span class="admin-badge">7</span></div>
+      <div class="admin-sec">Sistema</div>
+      <div class="admin-item">📈 Estadísticas</div>
+    </div>
+    <div class="admin-main">
+      <div class="rb" style="margin-bottom:12px;">
+        <div><div style="font-size:16px;font-weight:700;color:#1B2A4A;">Gestión de empresas</div><div style="font-size:11px;color:#888;">1,240 empresas registradas</div></div>
+        <button class="btn-gold btn-sm">+ Nueva empresa</button>
+      </div>
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <span class="tag tag-navy" style="padding:4px 10px;">Todas (1,240)</span>
+        <span class="tag tag-beige" style="padding:4px 10px;">Activas (1,180)</span>
+        <span class="tag tag-beige" style="padding:4px 10px;">Pendientes (42)</span>
+        <span class="tag tag-red" style="padding:4px 10px;">Suspendidas (18)</span>
+      </div>
+      <div style="background:#fff;border-radius:5px;border:1px solid #e8e8e8;overflow:hidden;">
+        <div style="display:flex;align-items:center;padding:9px 12px;border-bottom:1px solid #eee;gap:8px;">
+          <span style="flex:1;font-size:12px;font-weight:700;color:#1B2A4A;">Lista de empresas</span>
+          <input style="height:26px;border:1px solid #ccc;border-radius:4px;padding:0 8px;font-size:10px;width:140px;" placeholder="Buscar empresa…">
+        </div>
+        <div class="tbl-head"><div class="col-2">Empresa</div><div class="col-1">Sector</div><div class="col-1">Vacantes</div><div class="col-1">Estado</div><div style="width:80px;">Acciones</div></div>
+        <div class="tbl-row"><div class="col-2"><div style="font-weight:700;color:#1B2A4A;">Tech Solutions Inc.</div><div style="font-size:10px;color:#888;">techsolutions.sv · San Salvador</div></div><div class="col-1">Tecnología</div><div class="col-1">12 activas</div><div class="col-1"><span class="tag tag-green">Activa</span></div><div class="col-a"><button class="ic-btn">👁</button><button class="ic-btn">✏️</button><button class="ic-btn">🔒</button></div></div>
+        <div class="tbl-row"><div class="col-2"><div style="font-weight:700;color:#1B2A4A;">Banco Agrícola</div><div style="font-size:10px;color:#888;">bancoagricola.sv · San Salvador</div></div><div class="col-1">Finanzas</div><div class="col-1">8 activas</div><div class="col-1"><span class="tag tag-green">Activa</span></div><div class="col-a"><button class="ic-btn">👁</button><button class="ic-btn">✏️</button><button class="ic-btn">🔒</button></div></div>
+        <div class="tbl-row" style="background:#fffbf0;"><div class="col-2"><div style="font-weight:700;color:#1B2A4A;">Distribuidora XYZ</div><div style="font-size:10px;color:#888;">distxyz.com · Santa Ana</div></div><div class="col-1">Logística</div><div class="col-1">0 activas</div><div class="col-1"><span class="tag tag-gold">Pendiente</span></div><div class="col-a"><button class="ic-btn">👁</button><button class="ic-btn">✓</button><button class="ic-btn">✕</button></div></div>
+        <div class="tbl-row"><div class="col-2"><div style="font-weight:700;color:#1B2A4A;">Claro SV</div><div style="font-size:10px;color:#888;">claro.com.sv · San Salvador</div></div><div class="col-1">Telecomunicaciones</div><div class="col-1">5 activas</div><div class="col-1"><span class="tag tag-green">Activa</span></div><div class="col-a"><button class="ic-btn">👁</button><button class="ic-btn">✏️</button><button class="ic-btn">🔒</button></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ADM-004 Moderación -->
+<div class="screen-wrap">
+<div class="screen-label">ADM-004 · Moderación de Contenido · Admin</div>
+<div class="screen">
+  <div class="admin-wrap">
+    <div class="admin-side">
+      <div class="admin-logo">Trabajo<span>SV</span></div>
+      <div class="admin-sub">Panel Admin</div>
+      <div class="admin-sec">Principal</div>
+      <div class="admin-item">📊 Dashboard</div>
+      <div class="admin-sec">Gestión</div>
+      <div class="admin-item">👥 Usuarios</div>
+      <div class="admin-item">🏢 Empresas</div>
+      <div class="admin-item">💼 Vacantes</div>
+      <div class="admin-sec">Contenido</div>
+      <div class="admin-item active">🚩 Moderación <span class="admin-badge">7</span></div>
+      <div class="admin-item">📰 Recursos</div>
+      <div class="admin-sec">Sistema</div>
+      <div class="admin-item">📈 Estadísticas</div>
+    </div>
+    <div class="admin-main">
+      <div style="margin-bottom:12px;"><div style="font-size:16px;font-weight:700;color:#1B2A4A;">Moderación de contenido</div><div style="font-size:11px;color:#888;">7 elementos pendientes de revisión</div></div>
+      <div style="display:flex;gap:6px;margin-bottom:12px;">
+        <span class="tag tag-navy" style="padding:4px 10px;">Todos (7)</span>
+        <span class="tag tag-beige" style="padding:4px 10px;">Valoraciones (4)</span>
+        <span class="tag tag-beige" style="padding:4px 10px;">Foro (2)</span>
+        <span class="tag tag-beige" style="padding:4px 10px;">Recursos (1)</span>
+      </div>
+      <div class="mod-item">
+        <div style="font-size:20px;">⭐</div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Valoración reportada — Banco XYZ</div><div style="font-size:11px;color:#555;line-height:1.5;">"Esta empresa es un fraude, me robaron el salario de dos meses y me amenazaron cuando fui a reclamar…"</div><div style="display:flex;gap:6px;align-items:center;margin-top:6px;"><span class="tag tag-red">Reportada x3</span><span style="font-size:10px;color:#888;">usuario_anon · 10/03/2026</span></div></div>
+        <div style="display:flex;flex-direction:column;gap:5px;"><button class="btn-navy btn-sm">✓ Aprobar</button><button class="btn-danger">✕ Eliminar</button></div>
+      </div>
+      <div class="mod-item">
+        <div style="font-size:20px;">💬</div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Respuesta en foro — Cómo Mejorar tu Currículum</div><div style="font-size:11px;color:#555;line-height:1.5;">"Visita mi sitio para obtener plantillas gratis. También vendo cursos desde $5 con descuento especial…"</div><div style="display:flex;gap:6px;align-items:center;margin-top:6px;"><span class="tag tag-gold">Posible spam</span><span style="font-size:10px;color:#888;">marketing_guru · 11/03/2026</span></div></div>
+        <div style="display:flex;flex-direction:column;gap:5px;"><button class="btn-navy btn-sm">✓ Aprobar</button><button class="btn-danger">✕ Eliminar</button></div>
+      </div>
+      <div class="mod-item">
+        <div style="font-size:20px;">⭐</div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Valoración pendiente — Tech Solutions Inc.</div><div style="font-size:11px;color:#555;line-height:1.5;">"Excelente ambiente laboral, oportunidades de crecimiento, buen salario y flexibilidad de horario."</div><div style="display:flex;gap:6px;align-items:center;margin-top:6px;"><span class="tag tag-beige">Primera publicación</span><span style="font-size:10px;color:#888;">juan_garcia · 13/03/2026</span></div></div>
+        <div style="display:flex;flex-direction:column;gap:5px;"><button class="btn-navy btn-sm">✓ Aprobar</button><button class="btn-danger">✕ Eliminar</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ADM-005 Estadísticas -->
+<div class="screen-wrap">
+<div class="screen-label">ADM-005 · Estadísticas del Sistema · Admin</div>
+<div class="screen">
+  <div class="admin-wrap">
+    <div class="admin-side">
+      <div class="admin-logo">Trabajo<span>SV</span></div>
+      <div class="admin-sub">Panel Admin</div>
+      <div class="admin-sec">Principal</div>
+      <div class="admin-item">📊 Dashboard</div>
+      <div class="admin-sec">Gestión</div>
+      <div class="admin-item">👥 Usuarios</div>
+      <div class="admin-item">🏢 Empresas</div>
+      <div class="admin-item">💼 Vacantes</div>
+      <div class="admin-sec">Contenido</div>
+      <div class="admin-item">🚩 Moderación <span class="admin-badge">7</span></div>
+      <div class="admin-sec">Sistema</div>
+      <div class="admin-item active">📈 Estadísticas</div>
+    </div>
+    <div class="admin-main">
+      <div class="rb" style="margin-bottom:12px;">
+        <div><div style="font-size:16px;font-weight:700;color:#1B2A4A;">Estadísticas del sistema</div><div style="font-size:11px;color:#888;">Datos de desempeño — Marzo 2026</div></div>
+        <div style="display:flex;gap:6px;"><select style="height:26px;border:1px solid #ccc;border-radius:4px;font-size:10px;padding:0 6px;"><option>Últimos 30 días</option></select><button class="btn-gold btn-sm">Exportar CSV</button></div>
+      </div>
+      <div class="metrics" style="margin-bottom:14px;">
+        <div class="metric-box"><div class="metric-num" style="font-size:17px;">42%</div><div class="metric-label">Tasa de conversión</div></div>
+        <div class="metric-box"><div class="metric-num" style="font-size:17px;">4.2 min</div><div class="metric-label">Tiempo prom. sesión</div></div>
+        <div class="metric-box"><div class="metric-num" style="font-size:17px;">68%</div><div class="metric-label">Usuarios recurrentes</div></div>
+        <div class="metric-box"><div class="metric-num" style="font-size:17px;">22 días</div><div class="metric-label">Prom. cobertura vacante</div></div>
+      </div>
+      <div class="two-col">
+        <div class="card-white">
+          <div class="section-title">Postulaciones por sector</div>
+          <div class="bar-chart">
+            <div class="bar active" style="height:100%"><span class="bar-lbl">Tech</span></div>
+            <div class="bar" style="height:72%"><span class="bar-lbl">Finanzas</span></div>
+            <div class="bar" style="height:58%"><span class="bar-lbl">Salud</span></div>
+            <div class="bar" style="height:45%"><span class="bar-lbl">Logística</span></div>
+            <div class="bar" style="height:38%"><span class="bar-lbl">Marketing</span></div>
+          </div>
+        </div>
+        <div class="card-white">
+          <div class="section-title">Top sectores — Vacantes</div>
+          <div class="pr-row"><div class="pr-label"><span>Tecnología</span><span style="font-weight:700;color:#1B2A4A;">420</span></div><div class="pr-track"><div class="pr-fill" style="width:100%"></div></div></div>
+          <div class="pr-row"><div class="pr-label"><span>Finanzas</span><span style="font-weight:700;color:#1B2A4A;">310</span></div><div class="pr-track"><div class="pr-fill g" style="width:74%"></div></div></div>
+          <div class="pr-row"><div class="pr-label"><span>Salud</span><span style="font-weight:700;color:#1B2A4A;">280</span></div><div class="pr-track"><div class="pr-fill g" style="width:67%"></div></div></div>
+          <div class="pr-row"><div class="pr-label"><span>Logística</span><span style="font-weight:700;color:#1B2A4A;">195</span></div><div class="pr-track"><div class="pr-fill" style="width:46%;background:#D4C9B5;"></div></div></div>
+          <div class="pr-row"><div class="pr-label"><span>Marketing</span><span style="font-weight:700;color:#1B2A4A;">175</span></div><div class="pr-track"><div class="pr-fill" style="width:42%;background:#D4C9B5;"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     EMPRESA
+══════════════════════════════════════════ -->
+<div class="user-divider">
+  <div class="user-divider-line"></div>
+  <div class="user-divider-label">🏢 Empresa</div>
+  <div class="user-divider-line"></div>
+</div>
+
+<!-- EMP-001 Panel Empresa -->
+<div class="screen-wrap">
+<div class="screen-label">EMP-001 · Panel de Empresa · Empresa autenticada</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon">TS</div>
+    <span class="nav-link active">PANEL</span>
+    <span class="nav-link">MIS VACANTES</span>
+    <span class="nav-link">POSTULACIONES</span>
+    <span class="nav-link">PERFIL</span>
+    <div class="nav-search"></div>
+  </div>
+  <div style="background:#1B2A4A;padding:14px 20px;display:flex;align-items:center;gap:12px;">
+    <div style="width:42px;height:42px;background:#C9A96E;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px;">🏢</div>
+    <div><div style="font-size:14px;font-weight:700;color:#fff;">Tech Solutions Inc.</div><div style="font-size:10px;color:rgba(255,255,255,0.5);">Tecnología · San Salvador · techsolutions.com.sv</div></div>
+    <div style="margin-left:auto;display:flex;gap:7px;"><button class="btn-gold btn-sm">+ Publicar vacante</button><button class="btn-outline btn-sm" style="color:#fff;border-color:rgba(255,255,255,0.35);">Editar perfil</button></div>
+  </div>
+  <div class="content">
+    <div class="metrics">
+      <div class="metric-box"><div class="metric-icon">💼</div><div class="metric-num">12</div><div class="metric-label">Vacantes activas</div></div>
+      <div class="metric-box"><div class="metric-icon">📩</div><div class="metric-num">248</div><div class="metric-label">Postulaciones recibidas</div></div>
+      <div class="metric-box"><div class="metric-icon">👁️</div><div class="metric-num">4,120</div><div class="metric-label">Vistas al perfil</div></div>
+      <div class="metric-box"><div class="metric-icon">⭐</div><div class="metric-num">4.3</div><div class="metric-label">Valoración candidatos</div></div>
+    </div>
+    <div class="section-title">Vacantes publicadas</div>
+    <div class="vacante-row"><div class="v-info"><div class="v-title">Desarrollador Web Senior</div><div class="v-meta">Publicada 10/03/2026 · Tiempo completo · $2,000 – $3,000</div></div><span class="tag tag-green">Activa</span><span style="font-size:11px;color:#888;">32 postulaciones</span><button class="btn-navy btn-sm">Ver postulaciones</button><button class="btn-outline btn-sm">✏️</button></div>
+    <div class="vacante-row"><div class="v-info"><div class="v-title">Diseñador UX/UI</div><div class="v-meta">Publicada 05/03/2026 · Remoto · $1,500 – $2,000</div></div><span class="tag tag-green">Activa</span><span style="font-size:11px;color:#888;">18 postulaciones</span><button class="btn-navy btn-sm">Ver postulaciones</button><button class="btn-outline btn-sm">✏️</button></div>
+    <div class="vacante-row"><div class="v-info"><div class="v-title">Analista de Sistemas</div><div class="v-meta">Publicada 28/02/2026 · Híbrido · $1,800 – $2,200</div></div><span class="tag tag-red">Cerrada</span><span style="font-size:11px;color:#888;">55 postulaciones</span><button class="btn-outline btn-sm">Ver histórico</button></div>
+  </div>
+</div>
+</div>
+
+<!-- EMP-002 Publicar Vacante -->
+<div class="screen-wrap">
+<div class="screen-label">EMP-002 · Publicar Nueva Vacante · Empresa autenticada</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon">TS</div>
+    <span class="nav-link">PANEL</span>
+    <span class="nav-link active">MIS VACANTES</span>
+    <span class="nav-link">POSTULACIONES</span>
+    <div class="nav-search"></div>
+  </div>
+  <div class="content">
+    <div class="page-title" style="margin-bottom:16px;">Publicar nueva vacante</div>
+    <div style="display:grid;grid-template-columns:1fr 220px;gap:14px;">
+      <div>
+        <div class="card-white">
+          <div class="section-gold">Información del puesto</div>
+          <div class="form-group"><label class="form-label">Título del puesto *</label><input class="form-input" placeholder="Ej. Desarrollador Backend Senior"></div>
+          <div class="form-row" style="margin-bottom:10px;">
+            <div class="form-group" style="flex:1;"><label class="form-label">Tipo de contrato</label><select class="form-select"><option>Tiempo completo</option><option>Medio tiempo</option><option>Freelance</option></select></div>
+            <div class="form-group" style="flex:1;"><label class="form-label">Modalidad</label><select class="form-select"><option>Presencial</option><option>Remoto</option><option>Híbrido</option></select></div>
+          </div>
+          <div class="form-row" style="margin-bottom:10px;">
+            <div class="form-group" style="flex:1;"><label class="form-label">Salario mínimo ($)</label><input class="form-input" placeholder="1500"></div>
+            <div class="form-group" style="flex:1;"><label class="form-label">Salario máximo ($)</label><input class="form-input" placeholder="2500"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Ubicación</label><input class="form-input" placeholder="San Salvador, El Salvador"></div>
+          <div class="form-group"><label class="form-label">Nivel de experiencia</label><select class="form-select"><option>Junior (0–2 años)</option><option>Mid (2–5 años)</option><option>Senior (5+ años)</option></select></div>
+        </div>
+        <div class="card-white">
+          <div class="section-gold">Descripción y requisitos</div>
+          <div class="form-group"><label class="form-label">Descripción del puesto *</label><textarea class="form-textarea" rows="3" placeholder="Describe las responsabilidades principales del puesto…"></textarea></div>
+          <div class="form-group"><label class="form-label">Requisitos *</label><textarea class="form-textarea" rows="3" placeholder="Lista los requisitos técnicos y habilidades necesarias…"></textarea></div>
+          <div class="form-group"><label class="form-label">Beneficios</label><textarea class="form-textarea" rows="2" placeholder="Seguro médico, bono de transporte, trabajo remoto…"></textarea></div>
+          <div class="form-group"><label class="form-label">Correo de contacto</label><input class="form-input" placeholder="rrhh@empresa.com"></div>
+          <div style="display:flex;gap:8px;margin-top:4px;"><button class="btn-navy" style="flex:1;height:34px;">Publicar vacante</button><button class="btn-outline" style="height:34px;">Guardar borrador</button></div>
+        </div>
+      </div>
+      <div>
+        <div style="background:#1B2A4A;border-radius:6px;padding:14px;color:#fff;">
+          <div style="font-size:9px;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:9px;">Vista previa</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:2px;">Título del puesto</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.45);margin-bottom:8px;">Tech Solutions Inc.</div>
+          <div style="font-size:15px;font-weight:700;color:#C9A96E;margin-bottom:9px;">$1,500 – $2,500</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;">
+            <span style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);font-size:9px;padding:2px 8px;border-radius:10px;">📍 San Salvador</span>
+            <span style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);font-size:9px;padding:2px 8px;border-radius:10px;">⏱ Tiempo completo</span>
+          </div>
+        </div>
+        <div class="card" style="margin-top:10px;">
+          <div style="font-size:11px;font-weight:700;color:#1B2A4A;margin-bottom:7px;">Tips para tu vacante</div>
+          <div style="font-size:11px;color:#555;line-height:1.9;">✅ Sé específico con el título<br>✅ Incluye rango salarial<br>✅ Máximo 6 requisitos clave<br>✅ Menciona beneficios</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- EMP-003 Ver Postulaciones -->
+<div class="screen-wrap">
+<div class="screen-label">EMP-003 · Ver Postulaciones · Empresa autenticada</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon">TS</div>
+    <span class="nav-link">PANEL</span>
+    <span class="nav-link">MIS VACANTES</span>
+    <span class="nav-link active">POSTULACIONES</span>
+    <div class="nav-search"></div>
+  </div>
+  <div class="content">
+    <div class="rb" style="margin-bottom:14px;">
+      <div><div class="page-title" style="margin:0;">Postulaciones recibidas</div><div style="font-size:11px;color:#888;">Desarrollador Web Senior · 32 candidatos</div></div>
+      <div style="display:flex;gap:7px;"><select style="height:28px;border:1.5px solid #ccc;border-radius:4px;padding:0 7px;font-size:10px;"><option>Todos los estados</option><option>Pendiente</option><option>En revisión</option><option>Aprobado</option></select><input style="height:28px;border:1.5px solid #ccc;border-radius:4px;padding:0 8px;font-size:10px;width:140px;" placeholder="Buscar candidato…"></div>
+    </div>
+    <div class="two-col">
+      <div class="app-card">
+        <div class="row" style="margin-bottom:9px;"><div class="app-av">MR</div><div><div style="font-size:12px;font-weight:700;color:#1B2A4A;">María Rodríguez</div><div style="font-size:10px;color:#888;">Full Stack · 5 años exp.</div></div><div style="margin-left:auto;font-size:10px;color:#888;">12/03/2026</div></div>
+        <div style="margin-bottom:7px;"><span class="tag tag-navy">React</span><span class="tag tag-beige">Node.js</span><span class="tag tag-beige">PostgreSQL</span></div>
+        <div style="font-size:11px;color:#555;line-height:1.5;margin-bottom:9px;">"Desarrolladora con experiencia en sistemas de alta concurrencia y arquitectura de microservicios."</div>
+        <div style="display:flex;gap:5px;"><button class="btn-navy btn-sm">Ver perfil</button><button class="btn-gold btn-sm">✓ Aprobar</button><button class="btn-outline btn-sm">✕</button></div>
+      </div>
+      <div class="app-card" style="border:2px solid #C9A96E;">
+        <div style="text-align:right;margin-bottom:4px;"><span class="tag tag-gold">En revisión</span></div>
+        <div class="row" style="margin-bottom:9px;"><div class="app-av" style="background:#1B2A4A;color:#fff;">AL</div><div><div style="font-size:12px;font-weight:700;color:#1B2A4A;">Ana López</div><div style="font-size:10px;color:#888;">Frontend Senior · 6 años</div></div><div style="margin-left:auto;font-size:10px;color:#888;">10/03/2026</div></div>
+        <div style="margin-bottom:7px;"><span class="tag tag-navy">React</span><span class="tag tag-navy">Vue.js</span><span class="tag tag-beige">TypeScript</span></div>
+        <div style="font-size:11px;color:#555;line-height:1.5;margin-bottom:9px;">"6 años construyendo interfaces de alto rendimiento. Portfolio con más de 20 proyectos publicados."</div>
+        <div style="display:flex;gap:5px;"><button class="btn-navy btn-sm">Ver perfil</button><button class="btn-gold btn-sm">✓ Aprobar</button><button class="btn-outline btn-sm">✕</button></div>
+      </div>
+      <div class="app-card">
+        <div class="row" style="margin-bottom:9px;"><div class="app-av">CP</div><div><div style="font-size:12px;font-weight:700;color:#1B2A4A;">Carlos Pérez</div><div style="font-size:10px;color:#888;">Backend · 3 años exp.</div></div><div style="margin-left:auto;font-size:10px;color:#888;">11/03/2026</div></div>
+        <div style="margin-bottom:7px;"><span class="tag tag-navy">Java</span><span class="tag tag-beige">Spring Boot</span><span class="tag tag-beige">MySQL</span></div>
+        <div style="font-size:11px;color:#555;line-height:1.5;margin-bottom:9px;">"Especializado en APIs RESTful con experiencia en integración de sistemas del sector financiero."</div>
+        <div style="display:flex;gap:5px;"><button class="btn-navy btn-sm">Ver perfil</button><button class="btn-gold btn-sm">✓ Aprobar</button><button class="btn-outline btn-sm">✕</button></div>
+      </div>
+      <div class="app-card">
+        <div class="row" style="margin-bottom:9px;"><div class="app-av">JM</div><div><div style="font-size:12px;font-weight:700;color:#1B2A4A;">Jorge Martínez</div><div style="font-size:10px;color:#888;">Web Developer · 2 años</div></div><div style="margin-left:auto;font-size:10px;color:#888;">10/03/2026</div></div>
+        <div style="margin-bottom:7px;"><span class="tag tag-beige">HTML/CSS</span><span class="tag tag-beige">JavaScript</span><span class="tag tag-beige">PHP</span></div>
+        <div style="font-size:11px;color:#555;line-height:1.5;margin-bottom:9px;">"Desarrollador junior con buenas bases en tecnologías web y gran disposición para aprender."</div>
+        <div style="display:flex;gap:5px;"><button class="btn-navy btn-sm">Ver perfil</button><button class="btn-gold btn-sm">✓ Aprobar</button><button class="btn-outline btn-sm">✕</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- EMP-004 Revisar Candidato -->
+<div class="screen-wrap">
+<div class="screen-label">EMP-004 · Revisar Perfil de Candidato · Empresa autenticada</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon">TS</div>
+    <span class="nav-link">PANEL</span>
+    <span class="nav-link active">POSTULACIONES</span>
+    <div class="nav-search"></div>
+  </div>
+  <div class="content">
+    <div style="font-size:11px;color:#888;margin-bottom:13px;">← <span style="color:#C9A96E;cursor:pointer;">Postulaciones</span> / María Rodríguez</div>
+    <div style="display:grid;grid-template-columns:195px 1fr;gap:14px;">
+      <div>
+        <div style="background:#1B2A4A;border-radius:6px;padding:15px;color:#fff;text-align:center;">
+          <div class="avatar">MR</div>
+          <div style="font-size:13px;font-weight:700;">María Rodríguez</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.45);margin-bottom:13px;">Full Stack Developer</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.55);text-align:left;margin-bottom:5px;">📍 San Salvador</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.55);text-align:left;margin-bottom:5px;">📧 maria@correo.com</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.55);text-align:left;margin-bottom:12px;">📞 +503 7654-3210</div>
+          <hr style="border-color:rgba(255,255,255,0.1);margin-bottom:11px;">
+          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">
+            <span class="tag tag-gold" style="font-size:9px;">React</span>
+            <span style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);font-size:9px;padding:2px 7px;border-radius:10px;">Node.js</span>
+            <span style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);font-size:9px;padding:2px 7px;border-radius:10px;">Docker</span>
+            <span style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);font-size:9px;padding:2px 7px;border-radius:10px;">AWS</span>
+          </div>
+          <button style="width:100%;background:#C9A96E;color:#1B2A4A;border:none;border-radius:4px;padding:7px;font-size:10px;font-weight:700;cursor:pointer;">📄 Descargar CV</button>
+        </div>
+        <div class="card-white" style="margin-top:10px;">
+          <div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:6px;">Postulación para</div>
+          <div style="font-size:13px;font-weight:700;color:#1B2A4A;">Desarrollador Web Senior</div>
+          <div style="font-size:10px;color:#888;margin:4px 0 8px;">Recibida el 12/03/2026</div>
+          <span class="tag tag-gold">Pendiente de revisión</span>
+          <hr>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <button class="btn-navy" style="width:100%;height:30px;font-size:10px;">✓ Aprobar candidato</button>
+            <button class="btn-outline" style="width:100%;height:30px;font-size:10px;">✕ Rechazar</button>
+            <button class="btn-gold" style="width:100%;height:30px;font-size:10px;">💬 Contactar</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card-white"><div class="section-title">Sobre la candidata</div><p style="font-size:12px;color:#555;line-height:1.7;">Desarrolladora Full Stack con 5 años de experiencia en construcción de aplicaciones web escalables. Especializada en arquitecturas de microservicios y experiencias de usuario de alto rendimiento. Ha liderado equipos de hasta 4 personas en proyectos con más de 500,000 usuarios activos.</p></div>
+        <div class="card-white"><div class="section-title">Experiencia laboral</div>
+          <div class="exp-item"><div style="font-size:12px;font-weight:700;color:#1B2A4A;">Senior Frontend Developer</div><div style="font-size:11px;color:#666;">Inversiones Digitales SA — San Salvador</div><div style="font-size:10px;color:#C9A96E;font-weight:600;margin-top:2px;">Ene 2023 – Actualidad</div></div>
+          <div class="exp-item"><div style="font-size:12px;font-weight:700;color:#1B2A4A;">Full Stack Developer</div><div style="font-size:11px;color:#666;">Startup Fintech MX — Remoto</div><div style="font-size:10px;color:#C9A96E;font-weight:600;margin-top:2px;">Mar 2021 – Dic 2022</div></div>
+          <div class="exp-item"><div style="font-size:12px;font-weight:700;color:#1B2A4A;">Desarrolladora Junior</div><div style="font-size:11px;color:#666;">Agencia Digital CreaSV — Santa Ana</div><div style="font-size:10px;color:#C9A96E;font-weight:600;margin-top:2px;">Jun 2019 – Feb 2021</div></div>
+        </div>
+        <div class="card-white"><div class="section-title">Carta de presentación</div><p style="font-size:12px;color:#555;line-height:1.7;">Estimado equipo de Tech Solutions, estoy muy interesada en la posición de Desarrolladora Web Senior. Mi experiencia construyendo aplicaciones de alto tráfico y mi conocimiento en las tecnologías que utilizan encaja perfectamente con lo que buscan. Estaría encantada de conversar sobre cómo puedo contribuir a sus proyectos.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- EMP-005 Búsqueda y Filtros (módulo compartido) -->
+<div class="screen-wrap">
+<div class="screen-label">EMP-005 · Búsqueda de Empleo y Filtros · Empresa autenticada <span class="shared-note">★ Módulo compartido</span></div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon">TS</div>
+    <span class="nav-link active">INICIO</span>
+    <span class="nav-link">MIS VACANTES</span>
+    <span class="nav-link">POSTULACIONES</span>
+    <div class="nav-search"></div>
+  </div>
+  <div style="background:#F7F5F1;padding:12px 16px;display:flex;gap:8px;align-items:center;border-bottom:1px solid #e8e8e8;">
+    <button class="btn-gold">Filtros</button>
+    <input class="form-input" placeholder="Cargo, habilidad o empresa…" style="flex:1;">
+    <select class="form-select" style="width:160px;"><option>País, Ciudad o Región</option><option>San Salvador</option><option>Santa Ana</option></select>
+    <button class="btn-navy">Buscar</button>
+  </div>
+  <div style="display:grid;grid-template-columns:255px 1fr;">
+    <div style="padding:13px;border-right:1px solid #e8e8e8;">
+      <div style="background:#F0EBE0;border-radius:5px;padding:11px;margin-bottom:7px;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Desarrollador Web Senior</div><div style="font-size:11px;color:#555;margin-bottom:5px;">Tech Solutions Inc. — San Salvador</div><div style="font-size:10px;color:#888;margin-bottom:7px;">$2,000 – $3,000</div><div style="text-align:right;"><button class="btn-gold btn-sm">Ver</button></div></div>
+      <div style="background:#F0EBE0;border-radius:5px;padding:11px;margin-bottom:7px;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Diseñador UX/UI</div><div style="font-size:11px;color:#555;margin-bottom:5px;">Claro SV — Remoto</div><div style="font-size:10px;color:#888;margin-bottom:7px;">$1,500 – $2,000</div><div style="text-align:right;"><button class="btn-gold btn-sm">Ver</button></div></div>
+      <div style="background:#F0EBE0;border-radius:5px;padding:11px;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Analista de Datos</div><div style="font-size:11px;color:#555;margin-bottom:5px;">Hospital de Diagnóstico — Híbrido</div><div style="font-size:10px;color:#888;margin-bottom:7px;">$1,200 – $1,600</div><div style="text-align:right;"><button class="btn-gold btn-sm">Ver</button></div></div>
+    </div>
+    <div style="padding:13px;">
+      <div class="rb" style="margin-bottom:9px;"><div style="font-size:14px;font-weight:700;color:#1B2A4A;">Desarrollador Web Senior</div><span style="font-size:16px;color:#C9A96E;">★</span></div>
+      <div style="font-size:11px;color:#555;line-height:1.7;margin-bottom:10px;">Buscamos un Desarrollador Web Senior con sólida experiencia en React y Node.js para proyectos empresariales de alto impacto. Modalidad híbrida, salario competitivo y oportunidades de crecimiento real dentro del equipo.<br><br>Se requiere experiencia mínima de 3 años en desarrollo web, dominio de JavaScript y bases de datos SQL/NoSQL. Trabajo en equipo ágil.</div>
+      <div style="margin-bottom:10px;"><span style="font-size:11px;color:#555;">📍 San Salvador &nbsp;&nbsp; ⏱ Tiempo completo &nbsp;&nbsp; 💰 $2,000–$3,000</span></div>
+      <div style="text-align:right;"><button class="btn-navy">Aplicar</button></div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CANDIDATO / POSTULANTE
+══════════════════════════════════════════ -->
+<div class="user-divider">
+  <div class="user-divider-line"></div>
+  <div class="user-divider-label">👤 Candidato / Postulante</div>
+  <div class="user-divider-line"></div>
+</div>
+
+<!-- CAN-001 Perfil Candidato -->
+<div class="screen-wrap">
+<div class="screen-label">CAN-001 · Perfil de Candidato · Candidato autenticado</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon">JG</div>
+    <span class="nav-link">INICIO</span>
+    <span class="nav-link">EMPLEOS</span>
+    <span class="nav-link">FORO</span>
+    <span class="nav-link">RECURSOS</span>
+    <span class="nav-link active">PERFIL</span>
+    <div class="nav-search"></div>
+  </div>
+  <div class="content">
+    <div class="sidebar-layout">
+      <div>
+        <div class="p-sidebar">
+          <div class="avatar">JG</div>
+          <div class="p-name">Juan García</div>
+          <div class="p-role">Desarrollador Web · San Salvador</div>
+          <button class="btn-gold btn-sm" style="width:100%;margin-bottom:12px;">Editar perfil</button>
+          <div class="p-nav active">📋 Mi perfil</div>
+          <div class="p-nav">📩 Mis postulaciones</div>
+          <div class="p-nav">🔔 Alertas de empleo</div>
+          <div class="p-nav">⭐ Valoraciones</div>
+          <div class="p-nav">📊 Estadísticas</div>
+        </div>
+      </div>
+      <div>
+        <div class="two-col" style="margin-bottom:10px;">
+          <div class="card" style="text-align:center;"><div style="font-size:26px;font-weight:700;color:#1B2A4A;">1,245</div><div style="font-size:10px;color:#888;margin-top:2px;">Visitas al perfil</div></div>
+          <div class="card" style="text-align:center;"><div style="font-size:26px;font-weight:700;color:#1B2A4A;">87</div><div style="font-size:10px;color:#888;margin-top:2px;">Total de solicitudes enviadas</div></div>
+        </div>
+        <div class="card-white">
+          <div class="section-gold">Información personal</div>
+          <div class="form-row" style="margin-bottom:10px;">
+            <div class="form-group" style="flex:1;"><label class="form-label">Nombre</label><input class="form-input" value="Juan"></div>
+            <div class="form-group" style="flex:1;"><label class="form-label">Apellido</label><input class="form-input" value="García"></div>
+          </div>
+          <div class="form-row" style="margin-bottom:10px;">
+            <div class="form-group" style="flex:1;"><label class="form-label">Email</label><input class="form-input" value="juan@correo.com"></div>
+            <div class="form-group" style="flex:1;"><label class="form-label">Teléfono</label><input class="form-input" value="+503 7890-1234"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Título profesional</label><input class="form-input" value="Desarrollador Web Full Stack"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 11px;background:#F7F5F1;border-radius:4px;margin-bottom:10px;">
+            <div><div style="font-size:11px;font-weight:700;color:#1B2A4A;">📄 curriculum_juan_garcia.pdf</div><div style="font-size:10px;color:#888;">Subido el 01/03/2026</div></div>
+            <button class="btn-gold btn-sm">Actualizar CV</button>
+          </div>
+          <button class="btn-navy" style="width:100%;height:32px;">Guardar cambios</button>
+        </div>
+        <div class="card-white">
+          <div class="section-gold">Panel de Alertas</div>
+          <div class="alert-row"><span style="font-size:14px;">🔔</span><div style="flex:1;"><div style="font-size:11px;font-weight:600;color:#1B2A4A;">Desarrollador Web (Madrid)</div><div style="font-size:10px;color:#888;">Diario · Tecnología</div></div><div class="toggle"><div class="toggle-t"></div></div></div>
+          <div class="alert-row"><span style="font-size:14px;">🔔</span><div style="flex:1;"><div style="font-size:11px;font-weight:600;color:#1B2A4A;">Diseñador UI/UX (Remoto)</div><div style="font-size:10px;color:#888;">Semanal · Diseño</div></div><div class="toggle"><div class="toggle-t"></div></div></div>
+          <div class="alert-row"><span style="font-size:14px;">🔔</span><div style="flex:1;"><div style="font-size:11px;font-weight:600;color:#1B2A4A;">Analista de Datos (San Salvador)</div><div style="font-size:10px;color:#888;">Diario · Tecnología</div></div><div class="toggle off"><div class="toggle-t"></div></div></div>
+          <button class="btn-outline btn-sm" style="margin-top:6px;">+ Nueva alerta</button>
+        </div>
+        <div class="card-white">
+          <div class="section-gold">Sección de Valoraciones</div>
+          <div class="form-group"><label class="form-label">Empresa</label><select class="form-select"><option>Seleccionar empresa…</option><option>Tigo Business</option><option>Banco Agrícola</option></select></div>
+          <div class="form-group"><label class="form-label">Calificación</label><div class="stars" style="font-size:22px;cursor:pointer;">★★★★☆</div></div>
+          <div class="form-group"><label class="form-label">Tu experiencia</label><textarea class="form-textarea" rows="3" placeholder="Cuéntanos cómo fue trabajar en esta empresa…"></textarea></div>
+          <button class="btn-gold">Publicar valoración</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CAN-002 Comunidad y Recursos -->
+<div class="screen-wrap">
+<div class="screen-label">CAN-002 · Comunidad y Recursos · Candidato autenticado</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon">JG</div>
+    <span class="nav-link active">INICIO</span>
+    <span class="nav-link">FORO</span>
+    <span class="nav-link">RECURSOS</span>
+    <span class="nav-link">PERFIL</span>
+    <div class="nav-search"></div>
+  </div>
+  <div class="content">
+    <div class="page-title">Bienvenido de nuevo</div>
+    <div class="card" style="margin-bottom:14px;">
+      <div class="section-title">Últimos Temas Del Foro</div>
+      <div style="display:flex;gap:10px;">
+        <div style="flex:1;background:#fff;border:2px solid #1B2A4A;border-radius:5px;padding:11px;">
+          <div style="font-size:10px;color:#666;margin-bottom:3px;">Temas del foro</div>
+          <div style="font-size:22px;font-weight:700;color:#1B2A4A;">24 🗂️</div>
+          <div style="font-size:10px;color:#888;margin-top:2px;">Tópicos</div>
+          <div style="text-align:right;"><span style="color:#C9A96E;font-size:12px;">→</span></div>
+        </div>
+        <div style="flex:1;background:#F0EBE0;border-radius:5px;padding:11px;">
+          <div style="font-size:10px;color:#666;margin-bottom:3px;">Recursos</div>
+          <div style="font-size:22px;font-weight:700;color:#1B2A4A;">8 📄</div>
+          <div style="font-size:10px;color:#888;margin-top:2px;">Páginas</div>
+          <div style="text-align:right;"><span style="color:#C9A96E;font-size:12px;">→</span></div>
+        </div>
+        <div style="flex:1;background:#F0EBE0;border-radius:5px;padding:11px;">
+          <div style="font-size:10px;color:#666;margin-bottom:3px;">Valoración</div>
+          <div style="font-size:22px;font-weight:700;color:#1B2A4A;">4.5</div>
+          <div class="stars" style="font-size:11px;">★★★★☆</div>
+          <div style="text-align:right;"><span style="color:#C9A96E;font-size:12px;">→</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="rb" style="margin-bottom:10px;">
+        <div class="section-title" style="margin:0;">Últimos Temas Del Foro</div>
+        <select style="height:24px;border:1px solid #ccc;border-radius:4px;font-size:10px;padding:0 6px;"><option>Más recientes</option></select>
+      </div>
+      <div class="two-col">
+        <div style="background:#fff;border-radius:5px;padding:10px;border:1px solid #e8e8e8;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Como Mejorar Tu Currículum</div><div style="font-size:10px;color:#888;">20 Marzo 2026</div><div style="text-align:right;"><span style="color:#C9A96E;font-size:11px;cursor:pointer;">→</span></div></div>
+        <div style="background:#fff;border-radius:5px;padding:10px;border:1px solid #e8e8e8;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Consejos Para Entrevistas De Trabajo</div><div style="font-size:10px;color:#888;">15 Marzo 2026</div><div style="text-align:right;"><span style="color:#C9A96E;font-size:11px;cursor:pointer;">→</span></div></div>
+        <div style="background:#fff;border-radius:5px;padding:10px;border:1px solid #e8e8e8;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Como Trabajar En Equipo</div><div style="font-size:10px;color:#888;">14 Febrero 2026</div><div style="text-align:right;"><span style="color:#C9A96E;font-size:11px;cursor:pointer;">→</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CAN-003 Foro de Tema -->
+<div class="screen-wrap">
+<div class="screen-label">CAN-003 · Foro de Tema · Candidato autenticado</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon">JG</div>
+    <span class="nav-link">INICIO</span>
+    <span class="nav-link active">FORO</span>
+    <span class="nav-link">RECURSOS</span>
+    <span class="nav-link">PERFIL</span>
+    <div class="nav-search"></div>
+  </div>
+  <div class="content">
+    <div class="rb" style="margin-bottom:14px;"><div class="page-title" style="margin:0;">Foro De Tema</div><button class="btn-gold">Crear Nuevo Tema</button></div>
+    <div class="card">
+      <div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:10px;">Como Mejorar Tu Currículum</div>
+      <div style="background:#fff;border-radius:5px;padding:11px;margin-bottom:7px;border:1px solid #e8e8e8;"><div style="font-size:13px;font-weight:700;font-style:italic;color:#1B2A4A;margin-bottom:4px;">Como Mejorar Tu Currículum</div><div style="font-size:11px;color:#555;line-height:1.6;margin-bottom:5px;">Te recomiendo este curso para mejorar tu currículum y así poder lograr tus metas, objetivos y destacar tus habilidades profesionales ante los reclutadores.</div><div class="rb"><span style="font-size:10px;color:#888;">Fecha de Inicio: 22/03/2026</span><span style="color:#C9A96E;cursor:pointer;">→</span></div></div>
+      <div style="background:#fff;border-radius:5px;padding:11px;margin-bottom:7px;border:1px solid #e8e8e8;"><div style="font-size:13px;font-weight:700;font-style:italic;color:#1B2A4A;margin-bottom:4px;">Introducción a la Programación Python</div><div style="font-size:11px;color:#555;line-height:1.6;margin-bottom:5px;">Espacio creado para aprender, compartir ideas y resolver dudas sobre los fundamentos de Python. Ideal para quienes están iniciando en programación.</div><div class="rb"><span style="font-size:10px;color:#888;">Fecha de Inicio: 10/02/2026</span><span style="color:#C9A96E;cursor:pointer;">→</span></div></div>
+      <div style="background:#fff;border-radius:5px;padding:11px;border:1px solid #e8e8e8;"><div style="font-size:13px;font-weight:700;font-style:italic;color:#1B2A4A;margin-bottom:4px;">Como Empezar en Marketing Digital</div><div style="font-size:11px;color:#555;line-height:1.6;margin-bottom:5px;">Espacio pensado para personas que quieren aprender sobre marketing digital desde cero: redes sociales, publicidad en internet, creación de contenido y estrategias de promoción.</div><div class="rb"><span style="font-size:10px;color:#888;">Fecha de Inicio: 15/01/2026</span><span style="color:#C9A96E;cursor:pointer;">→</span></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CAN-004 Recursos de Aprendizaje -->
+<div class="screen-wrap">
+<div class="screen-label">CAN-004 · Recursos de Aprendizaje · Candidato autenticado</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon">JG</div>
+    <span class="nav-link">INICIO</span>
+    <span class="nav-link">FORO</span>
+    <span class="nav-link active">RECURSOS</span>
+    <span class="nav-link">PERFIL</span>
+    <div class="nav-search"></div>
+  </div>
+  <div class="content">
+    <div class="page-title">Recursos De Aprendizaje</div>
+    <div class="card">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+        <div style="background:#fff;border-radius:5px;padding:13px;border:1px solid #e8e8e8;text-align:center;"><div style="font-size:34px;margin-bottom:9px;">📋</div><div style="font-size:11px;font-weight:700;color:#1B2A4A;margin-bottom:6px;font-style:italic;">Guía para optimizar tu currículum</div><div style="font-size:11px;color:#555;line-height:1.6;margin-bottom:11px;">Consejos y recomendaciones para mejorar tu currículum, destacar tus habilidades y aumentar tus oportunidades laborales.</div><button class="btn-gold" style="width:100%;">Ver Recurso</button></div>
+        <div style="background:#fff;border-radius:5px;padding:13px;border:1px solid #e8e8e8;text-align:center;"><div style="font-size:34px;margin-bottom:9px;">🎥</div><div style="font-size:11px;font-weight:700;color:#1B2A4A;margin-bottom:6px;font-style:italic;">Video: Consejos Para una Entrevista Exitosa</div><div style="font-size:11px;color:#555;line-height:1.6;margin-bottom:11px;">Video con recomendaciones prácticas para prepararte para entrevistas de trabajo: respuestas, actitud y presentación.</div><button class="btn-gold" style="width:100%;">Ver Recurso</button></div>
+        <div style="background:#fff;border-radius:5px;padding:13px;border:1px solid #e8e8e8;text-align:center;"><div style="font-size:34px;margin-bottom:9px;">📊</div><div style="font-size:11px;font-weight:700;color:#1B2A4A;margin-bottom:6px;font-style:italic;">Curso Básico de Marketing</div><div style="font-size:11px;color:#555;line-height:1.6;margin-bottom:11px;">Espacio para aprender y compartir conocimientos sobre fundamentos del marketing digital y estrategias de contenido.</div><button class="btn-gold" style="width:100%;">Ver Recurso</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CAN-005 Foro de Respuesta -->
+<div class="screen-wrap">
+<div class="screen-label">CAN-005 · Foro de Respuesta · Candidato autenticado</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon">JG</div>
+    <span class="nav-link">INICIO</span>
+    <span class="nav-link active">FORO</span>
+    <span class="nav-link">RECURSOS</span>
+    <span class="nav-link">PERFIL</span>
+    <div class="nav-search"></div>
+  </div>
+  <div class="content">
+    <div class="page-title">Como Mejorar tu Currículum</div>
+    <div style="background:#F0EBE0;border-radius:6px;padding:13px;margin-bottom:9px;"><div style="display:flex;align-items:center;gap:9px;margin-bottom:7px;"><div style="width:38px;height:38px;background:#D4C9B5;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;">👔</div><div style="font-size:13px;font-weight:700;font-style:italic;color:#1B2A4A;">Juan Medina</div></div><div style="font-size:12px;color:#333;line-height:1.7;margin-bottom:7px;">Quiero compartir que este curso sobre cómo mejorar tu currículum me ayudó mucho a entender cómo organizar mejor mi información, destacar mis habilidades y presentar mi perfil de una manera más profesional ante los reclutadores.</div><div style="text-align:right;font-size:10px;color:#888;">10/02/2026</div></div>
+    <div style="background:#F0EBE0;border-radius:6px;padding:13px;margin-bottom:13px;"><div style="display:flex;align-items:center;gap:9px;margin-bottom:7px;"><div style="width:38px;height:38px;background:#D4C9B5;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;">👩</div><div style="font-size:13px;font-weight:700;font-style:italic;color:#1B2A4A;">Laura González</div></div><div style="font-size:12px;color:#333;line-height:1.7;margin-bottom:7px;">Hace poco tomé este curso para mejorar el currículum y la verdad me pareció muy útil. Aprendí cómo presentar mejor mis habilidades, organizar la información y hacer que el currículum sea más claro y profesional.</div><div style="text-align:right;font-size:10px;color:#888;">10/03/2026</div></div>
+    <input class="form-input" placeholder="Escribe Una Respuesta..." style="margin-bottom:9px;">
+    <div style="text-align:right;"><button class="btn-gold">Publicar Respuesta</button></div>
+  </div>
+</div>
+</div>
+
+<!-- CAN-006 Valoraciones -->
+<div class="screen-wrap">
+<div class="screen-label">CAN-006 · Valoraciones de Empresas · Candidato autenticado</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon">JG</div>
+    <span class="nav-link">INICIO</span>
+    <span class="nav-link">FORO</span>
+    <span class="nav-link">RECURSOS</span>
+    <span class="nav-link active">PERFIL</span>
+    <div class="nav-search"></div>
+  </div>
+  <div class="content">
+    <div class="page-title">Valoraciones</div>
+    <div style="background:#F0EBE0;border-radius:6px;padding:13px;margin-bottom:9px;"><div style="font-size:13px;font-weight:700;font-style:italic;color:#1B2A4A;margin-bottom:4px;">Guía para optimizar tu currículum</div><div style="font-size:11px;color:#555;line-height:1.6;margin-bottom:8px;">Esta guía es muy útil para organizar mejor tu información, resaltar tus habilidades y presentar tu perfil de forma profesional. Incluye consejos claros para mejorar tu CV y hacerlo más atractivo para reclutadores.</div><div class="rb"><div style="display:flex;align-items:center;gap:8px;"><div class="stars" style="font-size:15px;">★★★★☆</div><div style="font-size:10px;color:#888;">150 valoraciones</div></div><div style="font-size:17px;font-weight:700;color:#1B2A4A;">4.0</div></div></div>
+    <div style="background:#F0EBE0;border-radius:6px;padding:13px;margin-bottom:13px;"><div style="font-size:13px;font-weight:700;font-style:italic;color:#1B2A4A;margin-bottom:4px;">Video: Consejos Para una Entrevista Exitosa</div><div style="font-size:11px;color:#555;line-height:1.6;margin-bottom:8px;">Este video ofrece consejos muy útiles para prepararte para una entrevista de trabajo: cómo responder preguntas, mostrar seguridad y causar una buena impresión durante el proceso.</div><div class="rb"><div style="display:flex;align-items:center;gap:8px;"><div class="stars" style="font-size:15px;">★★★★★</div><div style="font-size:10px;color:#888;">200 Valoraciones</div></div><div style="font-size:17px;font-weight:700;color:#1B2A4A;">5.0</div></div></div>
+    <div style="background:#F0EBE0;border-radius:6px;padding:13px;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:7px;">Escribe Tu Valoración:</div><textarea class="form-textarea" rows="4" placeholder="Comparte tu experiencia con este recurso o empresa…" style="margin-bottom:9px;"></textarea><div style="text-align:right;"><button class="btn-gold">Agregar Valoración</button></div></div>
+  </div>
+</div>
+</div>
+
+<!-- CAN-007 Búsqueda y Filtros (módulo compartido) -->
+<div class="screen-wrap">
+<div class="screen-label">CAN-007 · Búsqueda de Empleo y Filtros · Candidato autenticado <span class="shared-note">★ Módulo compartido</span></div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon">JG</div>
+    <span class="nav-link active">INICIO</span>
+    <span class="nav-link">FORO</span>
+    <span class="nav-link">RECURSOS</span>
+    <span class="nav-link">PERFIL</span>
+    <div class="nav-search"></div>
+  </div>
+  <div style="background:#F7F5F1;padding:12px 16px;display:flex;gap:8px;align-items:center;border-bottom:1px solid #e8e8e8;">
+    <button class="btn-gold">Filtros</button>
+    <input class="form-input" placeholder="Cargo, habilidad o empresa…" style="flex:1;">
+    <select class="form-select" style="width:160px;"><option>País, Ciudad o Región</option><option>San Salvador</option></select>
+    <button class="btn-navy">Buscar</button>
+  </div>
+  <div style="display:grid;grid-template-columns:255px 1fr;">
+    <div style="padding:13px;border-right:1px solid #e8e8e8;">
+      <div style="background:#F0EBE0;border-radius:5px;padding:11px;margin-bottom:7px;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Desarrollador Web Senior</div><div style="font-size:11px;color:#555;margin-bottom:5px;">Tech Solutions Inc. — San Salvador</div><div style="font-size:10px;color:#888;margin-bottom:7px;">$2,000 – $3,000</div><div style="text-align:right;"><button class="btn-gold btn-sm">Ver</button></div></div>
+      <div style="background:#F0EBE0;border-radius:5px;padding:11px;margin-bottom:7px;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Diseñador UX/UI</div><div style="font-size:11px;color:#555;margin-bottom:5px;">Claro SV — Remoto</div><div style="font-size:10px;color:#888;margin-bottom:7px;">$1,500 – $2,000</div><div style="text-align:right;"><button class="btn-gold btn-sm">Ver</button></div></div>
+      <div style="background:#F0EBE0;border-radius:5px;padding:11px;"><div style="font-size:12px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Analista de Datos</div><div style="font-size:11px;color:#555;margin-bottom:5px;">Hospital de Diagnóstico — Híbrido</div><div style="font-size:10px;color:#888;margin-bottom:7px;">$1,200 – $1,600</div><div style="text-align:right;"><button class="btn-gold btn-sm">Ver</button></div></div>
+    </div>
+    <div style="padding:13px;">
+      <div class="rb" style="margin-bottom:9px;"><div style="font-size:14px;font-weight:700;color:#1B2A4A;">Desarrollador Web Senior</div><span style="font-size:16px;color:#C9A96E;">★</span></div>
+      <div style="font-size:11px;color:#555;line-height:1.7;margin-bottom:10px;">Buscamos un Desarrollador Web Senior con experiencia en React y Node.js para proyectos de alto impacto. Trabajo híbrido, salario competitivo y posibilidades de crecimiento real dentro del equipo.<br><br>Se requiere mínimo 3 años de experiencia, dominio de JavaScript y bases de datos SQL/NoSQL.</div>
+      <div style="margin-bottom:10px;"><span style="font-size:11px;color:#555;">📍 San Salvador &nbsp;&nbsp; ⏱ Tiempo completo &nbsp;&nbsp; 💰 $2,000–$3,000</span></div>
+      <div style="text-align:right;"><button class="btn-navy">Aplicar</button></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CAN-008 Detalle de la Vacante (módulo compartido) -->
+<div class="screen-wrap">
+<div class="screen-label">CAN-008 · Detalle de la Vacante · Candidato autenticado <span class="shared-note">★ Módulo compartido</span></div>
+<div class="screen">
+  <div style="background:#1B2A4A;padding:9px 16px;"><div style="font-size:13px;font-weight:700;color:#fff;">Detalle de la Vacante</div></div>
+  <div class="content">
+    <div style="background:#F0EBE0;border-radius:6px;padding:15px;margin-bottom:13px;position:relative;">
+      <div style="font-size:15px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Desarrollador Web Senior</div>
+      <div style="font-size:12px;font-style:italic;color:#666;margin-bottom:9px;">Tech Solutions Inc.</div>
+      <div style="font-size:17px;font-weight:700;color:#1B2A4A;margin-bottom:7px;">$2,000 - $3,000</div>
+      <div style="display:inline-flex;align-items:center;gap:5px;background:#fff;border-radius:4px;padding:3px 9px;font-size:11px;color:#555;margin-bottom:10px;">📍 Remoto</div>
+      <div style="position:absolute;right:13px;top:13px;background:#fff;border:1px solid #ddd;border-radius:5px;padding:13px;width:195px;box-shadow:0 2px 10px rgba(0,0,0,0.09);">
+        <div style="font-size:11px;font-weight:700;color:#1B2A4A;margin-bottom:9px;">Enviar postulación a<br>Tech Solutions Inc.</div>
+        <input class="form-input" placeholder="Nombre completo" style="margin-bottom:6px;">
+        <input class="form-input" placeholder="Carta de Presentación…" style="margin-bottom:6px;">
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#555;margin-bottom:9px;"><input type="checkbox" checked> Adjuntar CV</div>
+        <button class="btn-navy" style="width:100%;">Enviar Postulación</button>
+      </div>
+      <div style="padding-right:210px;text-align:right;"><button class="btn-gold">Postularme</button></div>
+    </div>
+    <div style="background:#F0EBE0;border-radius:6px;padding:14px;">
+      <div style="font-size:13px;font-weight:700;color:#1B2A4A;margin-bottom:8px;">Descripción</div>
+      <div style="font-size:11px;color:#555;line-height:1.8;">Buscamos un Desarrollador Web Senior apasionado por construir soluciones de calidad para clientes del sector financiero y retail.<br><br><strong>Responsabilidades:</strong><br>• Desarrollar y mantener aplicaciones web con React y Node.js<br>• Colaborar con diseñadores UX para implementar interfaces<br>• Optimizar el rendimiento y escalabilidad del sistema<br><br><strong>Requisitos:</strong><br>• 3+ años de experiencia en desarrollo web<br>• Dominio de JavaScript, React y Node.js<br>• Experiencia con bases de datos SQL y NoSQL<br>• Disponibilidad para modalidad remota</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ PANTALLAS PÚBLICAS (sin login) ══ -->
+<div class="user-divider">
+  <div class="user-divider-line"></div>
+  <div class="user-divider-label">🌐 Público — Sin login requerido</div>
+  <div class="user-divider-line"></div>
+</div>
+
+<!-- PUB-001 Página de Inicio -->
+<div class="screen-wrap">
+<div class="screen-label">PUB-001 · Página de Inicio · Todos los usuarios</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon" style="font-size:9px;letter-spacing:-0.5px;">SV</div>
+    <span class="nav-link active">INICIO</span>
+    <span class="nav-link">EMPLEOS</span>
+    <span class="nav-link">EMPRESAS</span>
+    <span class="nav-link">FORO</span>
+    <span class="nav-link">RECURSOS</span>
+    <div class="nav-search"></div>
+    <button class="btn-gold btn-sm" style="margin-left:8px;">Ingresar</button>
+  </div>
+  <div style="background:#F0EBE0;padding:26px 22px;">
+    <div style="font-size:20px;font-weight:700;color:#1B2A4A;margin-bottom:5px;">Encuentra tu próxima oportunidad laboral</div>
+    <div style="font-size:12px;color:#666;margin-bottom:14px;">Miles de vacantes actualizadas. Conectamos talento con empresas de El Salvador.</div>
+    <div style="display:flex;gap:8px;">
+      <input class="form-input" placeholder="Cargo, empresa o habilidad…" style="flex:1;">
+      <select class="form-select" style="width:155px;"><option>País, Ciudad o Región</option><option>San Salvador</option></select>
+      <button class="btn-gold">Buscar</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="metrics">
+      <div class="metric-box hl"><div class="metric-icon">🏢</div><div class="metric-num">1,240</div><div class="metric-label">Empresas registradas</div></div>
+      <div class="metric-box"><div class="metric-icon">💼</div><div class="metric-num">3,580</div><div class="metric-label">Vacantes activas</div></div>
+      <div class="metric-box"><div class="metric-icon">👥</div><div class="metric-num">18,400</div><div class="metric-label">Candidatos</div></div>
+      <div class="metric-box"><div class="metric-icon">✅</div><div class="metric-num">9,200</div><div class="metric-label">Postulaciones/mes</div></div>
+    </div>
+    <div class="rb" style="margin-bottom:10px;"><div class="section-title" style="margin:0;">Vacantes destacadas</div><span style="font-size:11px;color:#C9A96E;cursor:pointer;">Ver todas →</span></div>
+    <div class="two-col">
+      <div class="card"><div style="font-size:13px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Desarrollador Backend Java</div><div style="font-size:11px;color:#666;margin-bottom:7px;">Banco Agrícola · San Salvador</div><div><span class="tag tag-gold">$1,800 – $2,400</span><span class="tag tag-beige">Tiempo completo</span></div><div style="text-align:right;margin-top:6px;"><span style="color:#C9A96E;font-size:11px;">→</span></div></div>
+      <div class="card"><div style="font-size:13px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Diseñador UX/UI Senior</div><div style="font-size:11px;color:#666;margin-bottom:7px;">Claro SV · Remoto</div><div><span class="tag tag-gold">$1,500 – $2,000</span><span class="tag tag-navy">Remoto</span></div><div style="text-align:right;margin-top:6px;"><span style="color:#C9A96E;font-size:11px;">→</span></div></div>
+      <div class="card"><div style="font-size:13px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Analista de Datos</div><div style="font-size:11px;color:#666;margin-bottom:7px;">Hospital de Diagnóstico · SS</div><div><span class="tag tag-gold">$1,200 – $1,600</span><span class="tag tag-beige">Híbrido</span></div><div style="text-align:right;margin-top:6px;"><span style="color:#C9A96E;font-size:11px;">→</span></div></div>
+      <div class="card"><div style="font-size:13px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Ingeniero de Redes</div><div style="font-size:11px;color:#666;margin-bottom:7px;">Tigo Business · Antiguo Cuscatlán</div><div><span class="tag tag-gold">$2,000 – $2,800</span><span class="tag tag-beige">Presencial</span></div><div style="text-align:right;margin-top:6px;"><span style="color:#C9A96E;font-size:11px;">→</span></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PUB-002 Login -->
+<div class="screen-wrap">
+<div class="screen-label">PUB-002 · Inicio de Sesión · Todos los roles</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon" style="font-size:9px;">SV</div>
+    <span class="nav-link active">INICIO</span>
+    <span class="nav-link">EMPLEOS</span>
+    <span class="nav-link">RECURSOS</span>
+    <div class="nav-search"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;min-height:380px;">
+    <div style="background:#1B2A4A;padding:30px 22px;display:flex;flex-direction:column;justify-content:center;">
+      <div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:9px;line-height:1.3;">Accede a miles de<br>oportunidades laborales</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:18px;">Gestiona tus postulaciones y conecta con las mejores empresas de El Salvador.</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,0.65);"><div style="width:5px;height:5px;background:#C9A96E;border-radius:50%;"></div>Postúlate con un clic</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,0.65);"><div style="width:5px;height:5px;background:#C9A96E;border-radius:50%;"></div>Alertas de empleo personalizadas</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,0.65);"><div style="width:5px;height:5px;background:#C9A96E;border-radius:50%;"></div>Estadísticas de tu perfil</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,0.65);"><div style="width:5px;height:5px;background:#C9A96E;border-radius:50%;"></div>Valorar empresas donde trabajaste</div>
+      </div>
+    </div>
+    <div style="background:#F7F5F1;padding:30px 22px;">
+      <div style="font-size:16px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Bienvenido de nuevo</div>
+      <div style="font-size:11px;color:#888;margin-bottom:15px;">Ingresa tus credenciales para continuar</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px;">
+        <div style="padding:8px;background:#1B2A4A;border-radius:4px;font-size:11px;font-weight:700;color:#fff;text-align:center;cursor:pointer;">👤 Candidato</div>
+        <div style="padding:8px;background:#fff;border:1.5px solid #ccc;border-radius:4px;font-size:11px;color:#666;text-align:center;cursor:pointer;">🏢 Empresa</div>
+      </div>
+      <div class="form-group"><label class="form-label">Correo electrónico</label><input class="form-input" placeholder="tu@correo.com"></div>
+      <div class="form-group"><label class="form-label">Contraseña</label><input class="form-input" type="password" placeholder="••••••••"></div>
+      <div style="text-align:right;margin-bottom:13px;"><span style="font-size:11px;color:#C9A96E;cursor:pointer;">¿Olvidaste tu contraseña?</span></div>
+      <button class="btn-navy" style="width:100%;height:34px;">Iniciar sesión</button>
+      <div style="text-align:center;margin-top:11px;font-size:11px;color:#888;">¿No tienes cuenta? <span style="color:#C9A96E;cursor:pointer;">Regístrate gratis</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PUB-003 Registro -->
+<div class="screen-wrap">
+<div class="screen-label">PUB-003 · Registro de Usuario · Usuario nuevo</div>
+<div class="screen">
+  <div class="navbar">
+    <div class="nav-icon" style="font-size:9px;">SV</div>
+    <span class="nav-link">INICIO</span>
+    <span class="nav-link">EMPLEOS</span>
+    <div class="nav-search"></div>
+    <button class="btn-gold btn-sm" style="margin-left:8px;">Iniciar sesión</button>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;min-height:360px;">
+    <div style="background:#1B2A4A;padding:30px 22px;display:flex;flex-direction:column;justify-content:center;">
+      <div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:9px;line-height:1.3;">Crea tu perfil y comienza hoy mismo</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.7;">Únete a más de 18,000 profesionales que ya encontraron su trabajo ideal en TrabajaSV.</div>
+    </div>
+    <div style="background:#F7F5F1;padding:26px 22px;">
+      <div style="font-size:16px;font-weight:700;color:#1B2A4A;margin-bottom:3px;">Crear cuenta</div>
+      <div style="font-size:11px;color:#888;margin-bottom:13px;">¿Cómo deseas registrarte?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:13px;">
+        <div style="padding:8px;background:#1B2A4A;border-radius:4px;font-size:11px;font-weight:700;color:#fff;text-align:center;">👤 Soy candidato</div>
+        <div style="padding:8px;background:#fff;border:1.5px solid #ccc;border-radius:4px;font-size:11px;color:#666;text-align:center;">🏢 Soy empresa</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;">
+        <div class="form-group"><label class="form-label">Nombre</label><input class="form-input" placeholder="Juan"></div>
+        <div class="form-group"><label class="form-label">Apellido</label><input class="form-input" placeholder="García"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Correo electrónico</label><input class="form-input" placeholder="tu@correo.com"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px;">
+        <div class="form-group"><label class="form-label">Contraseña</label><input class="form-input" type="password" placeholder="Mín. 8 caracteres"></div>
+        <div class="form-group"><label class="form-label">Confirmar</label><input class="form-input" type="password" placeholder="Repetir"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Área profesional</label><select class="form-select"><option>Seleccionar área…</option><option>Tecnología</option><option>Finanzas</option><option>Marketing</option></select></div>
+      <button class="btn-gold" style="width:100%;height:34px;margin-top:3px;">Crear mi cuenta gratis</button>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
